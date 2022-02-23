@@ -4,7 +4,7 @@ var contentPara = document.querySelector('.content')
 // when the hash changes
 function setActiveTabAccordingToHash(type) {
   makeAllTabsInactive()
-  var tabToActivate = document.querySelector(`a[href="#${type}"]`)
+  var tabToActivate = document.querySelector(`[href="#${type}"]`)
   tabToActivate.classList.add('active')
 }
 
@@ -15,8 +15,16 @@ function makeAllTabsInactive() {
 // runs on page load and whenever the hash changes
 function setContentAccordingToHash() {
   var type = window.location.hash.substring(1)
-  contentPara.innerHTML = data[type]
-  setActiveTabAccordingToHash(type)
+  for (let item of data) {
+    if (item.section === type) {
+      // contentPara.innerHTML = item.story
+      contentPara.innerHTML = `
+      <h2>${item.section}</h2>
+      <p>${item.story}</p>
+      `
+      setActiveTabAccordingToHash(type)
+    }
+  }
 }
 
 // only runs once on page load
